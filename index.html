@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesque Shop PMW - Iscas Artificiais</title>
+    <meta name="description" content="Iscas artificiais de alta performance. Garanta os melhores modelos para a sua pescaria na Pesque Shop PMW.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="ph-fill ph-fish-simple"></i>
+                <span>PESQUE SHOP PMW</span>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Abrir menu">
+                <i class="ph ph-list"></i>
+            </button>
+
+            <nav class="nav-links">
+                <a href="#inicio">Início</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#produtos">Modelos de Iscas</a>
+                <a href="#contato" class="btn-outline">Contato</a>
+                <button id="cart-toggle" class="cart-btn" aria-label="Abrir carrinho">
+                    <i class="ph ph-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-bg" style="background-image: url('images/hero_bg.png');"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <span class="badge">Alta Performance</span>
+            <h1>Fisgue seu próximo troféu.</h1>
+            <p>Modelos artesanais e exclusivos projetados para atrair os maiores predadores. Aumente suas capturas com a Pesque Shop PMW.</p>
+            <div class="hero-buttons">
+                <a href="#produtos" class="btn-primary">Ver Catálogo <i class="ph-bold ph-arrow-right"></i></a>
+                <a href="#contato" class="btn-secondary">Falar no WhatsApp <i class="ph-bold ph-whatsapp-logo"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <h2>Qualidade que faz a diferença na ponta da linha</h2>
+                <p>Nossas iscas são desenvolvidas com materiais de alta resistência, cores atrativas (cores UV) e nado perfeitamente balanceado para simular presas reais. Não importa se você pesca Tucunaré, Traíra ou Dourado, temos a isca certa para a sua região.</p>
+                
+                <ul class="features">
+                    <li>
+                        <i class="ph-fill ph-check-circle"></i>
+                        <div>
+                            <strong>Nado Realista</strong>
+                            <span>Ação projetada para instigar o ataque.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="ph-fill ph-check-circle"></i>
+                        <div>
+                            <strong>Cores Vibrantes</strong>
+                            <span>Pintura de alta durabilidade e brilho.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="ph-fill ph-check-circle"></i>
+                        <div>
+                            <strong>Garatéias Reforçadas</strong>
+                            <span>Hardware que não te deixa na mão na hora da briga.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="about-image-container">
+                <div class="about-image" style="background-image: url('images/lure_1.png');"></div>
+                <div class="glass-card">
+                    <i class="ph-fill ph-star"></i>
+                    <span>Testado e aprovado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="produtos" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Modelos</h2>
+                <p>Confira algumas de nossas iscas campeãs. Entre em contato para cores e tamanhos disponíveis.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card" data-id="1">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_1.png" alt="Sapo Anti-enrosco (Placeholder)" class="product-image">
+                        <div class="product-badge">Topwater</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Frog Anti-enrosco (Exemplo)</h3>
+                        <p class="product-desc">Isca de superfície ideal para locais com muita vegetação. Nado em Z perfeito.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 25,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Frog Anti-enrosco">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card" data-id="2">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_2.png" alt="Isca Meia-água (Placeholder)" class="product-image">
+                        <div class="product-badge">Meia-água</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Jerkbait Minnow (Exemplo)</h3>
+                        <p class="product-desc">Excelente para dias em que o peixe está manhoso. Flutuação rápida e rattlin forte.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 35,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Jerkbait Minnow">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card" data-id="3">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_3.png" alt="Spinnerbait (Placeholder)" class="product-image">
+                        <div class="product-badge">Fundo/Meia-água</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Spinnerbait Neon (Exemplo)</h3>
+                        <p class="product-desc">Grande vibração e reflexo na água. Muito produtiva em águas turvas.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 42,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Spinnerbait Neon">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Product 4 -->
+                <div class="product-card" data-id="4">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_4.png" alt="Popper (Placeholder)" class="product-image">
+                        <div class="product-badge">Superfície</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Isca Popper (Exemplo)</h3>
+                        <p class="product-desc">Ação de superfície que levanta muita água (Splash). Irresistível para predadores ativos.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 28,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Isca Popper">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card" data-id="5">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_5.png" alt="Crankbait Profundidade (Placeholder)" class="product-image">
+                        <div class="product-badge">Fundo/Profundidade</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Crankbait Fundo (Exemplo)</h3>
+                        <p class="product-desc">Isca de barbela longa que atinge maiores profundidades. Perfeita para peixes manhosos no fundo.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 32,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Crankbait Profundidade">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card" data-id="6">
+                    <div class="product-image-wrapper product-trigger">
+                        <img src="images/lure_2.png" alt="Isca Meia-água/Zara (Placeholder)" class="product-image">
+                        <div class="product-badge">Superfície/Zara</div>
+                        <div class="product-hover-hint">Clique para ver detalhes</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-trigger">Isca Zara / Stick (Exemplo)</h3>
+                        <p class="product-desc">Nado errático "Walk the Dog". Excelente para levantamento de cardumes de tucunarés.</p>
+                        <div class="product-footer">
+                            <span class="price">R$ 29,00</span>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" title="Adicionar ao carrinho">
+                                    <i class="ph ph-shopping-cart-simple"></i>
+                                </button>
+                                <button class="btn-buy" data-produto="Isca Zara">
+                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="products-more">
+                <p>E muito mais modelos...</p>
+                <a href="#contato" class="btn-secondary">Solicitar Catálogo Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="contact">
+        <div class="container contact-container">
+            <div class="contact-box glass-box">
+                <h2>Pronto para a pescaria?</h2>
+                <p>Entre em contato pelo WhatsApp para tirar dúvidas, escolher cores e fechar seu pedido de forma rápida e segura.</p>
+                
+                <div class="contact-methods">
+                    <!-- Configurar o número do WhatsApp abaixo em data-numero="SEU_NUMERO_AQUI_COM_DDD" (Ex: 5511999999999) -->
+                    <a href="#" class="btn-primary whatsapp-main-btn" data-numero="5500000000000">
+                        <i class="ph-fill ph-whatsapp-logo"></i>
+                        Iniciar Conversa no WhatsApp
+                    </a>
+                </div>
+                
+                <div class="social-links">
+                    <p>Siga nas redes sociais:</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="ph-fill ph-youtube-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <i class="ph-fill ph-fish-simple"></i>
+                <span>PESQUE SHOP PMW</span>
+            </div>
+            <p>&copy; <span id="year"></span> Pesque Shop PMW. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button id="cart-close" class="close-btn"><i class="ph ph-x"></i></button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Items added via JS -->
+            <div class="empty-cart-msg">Seu carrinho está vazio.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-value">R$ 0,00</span>
+            </div>
+            <button id="checkout-btn" class="btn-primary btn-full">Finalizar Pedido via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content glass-box">
+            <button id="modal-close" class="close-btn"><i class="ph ph-x"></i></button>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <div class="main-image">
+                        <img id="modal-img" src="" alt="">
+                    </div>
+                    <div class="image-thumbnails" id="modal-thumbs">
+                        <!-- Thumbs via JS -->
+                    </div>
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-title">Nome da Isca</h2>
+                    <span id="modal-badge" class="badge">Categoria</span>
+                    <p id="modal-desc">Descrição detalhada do produto aqui...</p>
+                    <div class="modal-price-row">
+                        <span id="modal-price" class="price">R$ 0,00</span>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="modal-add-cart" class="btn-secondary">
+                            <i class="ph ph-shopping-cart-simple"></i> Adicionar ao Carrinho
+                        </button>
+                        <button id="modal-buy-now" class="btn-primary">
+                            <i class="ph ph-whatsapp-logo"></i> Comprar Agora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
