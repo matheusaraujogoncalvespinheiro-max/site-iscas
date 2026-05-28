@@ -117,7 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let products = JSON.parse(localStorage.getItem('pescashop_products')) || DEFAULT_PRODUCTS;
+    let products = DEFAULT_PRODUCTS;
+    try {
+        const stored = localStorage.getItem('pescashop_products');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                products = parsed;
+            }
+        }
+    } catch (e) {
+        console.error('Erro ao carregar localStorage:', e);
+    }
 
     function saveProducts() {
         localStorage.setItem('pescashop_products', JSON.stringify(products));

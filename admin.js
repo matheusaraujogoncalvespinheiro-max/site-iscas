@@ -95,7 +95,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- CARREGAMENTO DO BANCO DE DADOS ---
-    let products = JSON.parse(localStorage.getItem('pescashop_products')) || DEFAULT_PRODUCTS;
+    let products = DEFAULT_PRODUCTS;
+    try {
+        const stored = localStorage.getItem('pescashop_products');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                products = parsed;
+            }
+        }
+    } catch (e) {
+        console.error('Erro ao carregar localStorage:', e);
+    }
 
     function saveProducts() {
         localStorage.setItem('pescashop_products', JSON.stringify(products));
@@ -301,24 +312,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 : `<span class="stock-badge in-stock">Em Estoque</span>`;
             
             const tr = document.createElement('tr');
+            const imgUrl = (product.images && product.images[0]) ? product.images[0] : 'images/lure_1.png';
+            const priceVal = (typeof product.price === 'number' && !isNaN(product.price)) ? product.price : 0;
+            const categoryVal = product.category || 'superficie';
+            const stockVal = product.stock !== undefined ? product.stock : 0;
+            const nameVal = product.name || 'Isca Sem Nome';
+
             tr.innerHTML = `
                 <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); vertical-align: middle;">
                     <div class="product-meta-cell">
-                        <img src="${product.images[0]}" alt="${product.name}">
-                        <span class="product-name-txt">${product.name}</span>
+                        <img src="${imgUrl}" alt="${nameVal}">
+                        <span class="product-name-txt">${nameVal}</span>
                     </div>
                 </td>
                 <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); vertical-align: middle;">
-                    <span class="product-price-txt">R$ ${product.price.toFixed(2)}</span>
+                    <span class="product-price-txt">R$ ${priceVal.toFixed(2)}</span>
                 </td>
                 <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); text-transform: capitalize; color: var(--text-muted); vertical-align: middle;">
-                    ${product.category}
+                    ${categoryVal}
                 </td>
                 <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); text-align: center; vertical-align: middle;">
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
                         <div class="admin-stock-control">
                             <button class="admin-stock-btn stock-minus" data-id="${id}">-</button>
-                            <span class="admin-stock-value">${product.stock !== undefined ? product.stock : 0}</span>
+                            <span class="admin-stock-value">${stockVal}</span>
                             <button class="admin-stock-btn stock-plus" data-id="${id}">+</button>
                         </div>
                         ${stockBadge}
