@@ -117,13 +117,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // --- SANITIZAÇÃO DE DADOS ---
+    function sanitizeProducts(parsed) {
+        if (!parsed || typeof parsed !== 'object') return null;
+        const clean = {};
+        Object.keys(parsed).forEach(id => {
+            const prod = parsed[id];
+            if (prod && typeof prod === 'object' && !Array.isArray(prod)) {
+                const name = typeof prod.name === 'string' ? prod.name.trim() : 'Isca Sem Nome';
+                const price = (typeof prod.price === 'number' && !isNaN(prod.price)) ? prod.price : 0.0;
+                const desc = typeof prod.desc === 'string' ? prod.desc.trim() : '';
+                const badge = typeof prod.badge === 'string' ? prod.badge.trim() : 'Isca';
+                const category = ['superficie', 'meia-agua', 'fundo'].includes(prod.category) ? prod.category : 'superficie';
+                
+                let images = ['images/lure_1.png'];
+                if (Array.isArray(prod.images) && prod.images.length > 0) {
+                    images = prod.images.filter(img => typeof img === 'string' && img.trim() !== '');
+                    if (images.length === 0) images = ['images/lure_1.png'];
+                }
+                
+                let colors = [];
+                if (Array.isArray(prod.colors)) {
+                    colors = prod.colors.filter(c => c && typeof c === 'object' && typeof c.name === 'string');
+                }
+                
+                let sizes = [];
+                if (Array.isArray(prod.sizes)) {
+                    sizes = prod.sizes.filter(s => typeof s === 'string');
+                }
+                
+                const stock = (typeof prod.stock === 'number' && !isNaN(prod.stock)) ? prod.stock : 0;
+                
+                clean[id] = {
+                    name,
+                    price,
+                    desc,
+                    badge,
+                    category,
+                    images,
+                    colors,
+                    sizes,
+                    stock
+                };
+            }
+        });
+        return Object.keys(clean).length > 0 ? clean : null;
+    }
+
     let products = DEFAULT_PRODUCTS;
     try {
         const stored = localStorage.getItem('pescashop_products');
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-                products = parsed;
+            const sanitized = sanitizeProducts(parsed);
+            if (sanitized) {
+                products = sanitized;
+            } else {
+                localStorage.setItem('pescashop_products', JSON.stringify(DEFAULT_PRODUCTS));
             }
         }
     } catch (e) {
@@ -149,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Object.keys(products).forEach(id => {
             const product = products[id];
+            if (!product || typeof product !== 'object') return;
             
             // Check category filter
             const matchesCategory = currentCategory === 'todos' || product.category === currentCategory;
