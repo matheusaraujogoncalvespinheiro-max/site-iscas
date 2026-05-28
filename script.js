@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCatalog();
 
     // --- CART LOGIC ---
-    let cart = JSON.parse(localStorage.getItem('pesqueshop_cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('pescashop_cart')) || [];
 
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartToggle = document.getElementById('cart-toggle');
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         cartTotalValue.textContent = `R$ ${total.toFixed(2)}`;
         cartCountLabel.textContent = count;
-        localStorage.setItem('pesqueshop_cart', JSON.stringify(cart));
+        localStorage.setItem('pescashop_cart', JSON.stringify(cart));
     }
 
     function addToCart(id, colorObj = null, sizeStr = null) {
@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const total = subtotal + shippingCost;
 
-        let message = `🔥 *NOVO PEDIDO - PESQUE SHOP PMW* 🔥\n`;
+        let message = `🔥 *NOVO PEDIDO - PESCA SHOP PMW* 🔥\n`;
         message += `----------------------------------------\n`;
         message += `👤 *Cliente:* ${name}\n`;
         message += `📞 *WhatsApp:* ${phone}\n\n`;

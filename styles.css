@@ -1,13 +1,13 @@
 :root {
-    /* Color Palette */
-    --bg-dark: #0f1115;
-    --bg-surface: #1a1d24;
-    --bg-surface-hover: #232730;
-    --accent-neon: #ccff00;
-    --accent-neon-glow: rgba(204, 255, 0, 0.4);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --border-color: rgba(255, 255, 255, 0.1);
+    /* Color Palette - Premium Monochrome Style (Instagram Inspired) */
+    --bg-dark: #000000;              /* Pitch black background */
+    --bg-surface: #121212;           /* Dark gray surface matching Instagram UI elements */
+    --bg-surface-hover: #1a1a1a;     /* Hover surface color */
+    --accent-neon: #ffffff;          /* Pure white high-contrast accent color */
+    --accent-neon-glow: rgba(255, 255, 255, 0.15); /* Soft premium white glow */
+    --text-main: #ffffff;            /* Pure white text */
+    --text-muted: #8e8e8e;           /* Elegant Instagram-style gray text for secondary elements */
+    --border-color: rgba(255, 255, 255, 0.12); /* Clean subtle border lines */
     
     /* Typography */
     --font-sans: 'Inter', sans-serif;
@@ -96,7 +96,7 @@ button {
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--accent-neon-glow);
-    background-color: #b3e600;
+    background-color: #e6e6e6;
 }
 
 .btn-secondary {
@@ -162,9 +162,18 @@ button {
     color: var(--text-main);
 }
 
-.logo i {
-    color: var(--accent-neon);
-    font-size: 2rem;
+.logo-img {
+    height: 42px;
+    width: 42px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition);
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.05);
+    border-color: #ffffff;
 }
 
 .nav-links {
@@ -234,13 +243,13 @@ button {
 .badge {
     display: inline-block;
     padding: 0.35rem 1rem;
-    background-color: rgba(204, 255, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     color: var(--accent-neon);
     border-radius: 50px;
     font-size: 0.875rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(204, 255, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hero h1 {
@@ -292,7 +301,7 @@ button {
 .features i {
     font-size: 2rem;
     color: var(--accent-neon);
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 50%;
     padding: 0.5rem;
 }
@@ -395,7 +404,7 @@ button {
 .product-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    border-color: rgba(204, 255, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .product-image-wrapper {
