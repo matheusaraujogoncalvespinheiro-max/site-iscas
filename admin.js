@@ -144,6 +144,127 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- SMART COLOR PARSER ---
+    function parseColors(input) {
+        const value = input.trim();
+        if (!value) return [];
+
+        // 1. Try parsing as JSON first
+        if (value.startsWith('[') || value.startsWith('{')) {
+            try {
+                const parsed = JSON.parse(value);
+                return Array.isArray(parsed) ? parsed : [parsed];
+            } catch (e) {
+                try {
+                    // Try replacing single quotes with double quotes
+                    const parsed = JSON.parse(value.replace(/'/g, '"'));
+                    return Array.isArray(parsed) ? parsed : [parsed];
+                } catch (e2) {
+                    console.warn('Falhou ao analisar como JSON, tentando parse de texto livre', e2);
+                }
+            }
+        }
+
+        // 2. Parse as a comma/semicolon/newline separated list of colors
+        const items = value.split(/[,\n;]+/).map(item => item.trim()).filter(Boolean);
+        const colorMap = {
+            'osso': { hex: '#fdf6e2', uv: true },
+            'verde limao': { hex: '#ccff00', uv: true },
+            'verde limão': { hex: '#ccff00', uv: true },
+            'limao': { hex: '#ccff00', uv: true },
+            'limão': { hex: '#ccff00', uv: true },
+            'rosa': { hex: '#ec4899', uv: true },
+            'laranja': { hex: '#f97316', uv: true },
+            'cenoura': { hex: '#f97316', uv: true },
+            'vermelho': { hex: '#ef4444', uv: false },
+            'preto': { hex: '#111111', uv: false },
+            'prata': { hex: '#e2e8f0', uv: false },
+            'dourado': { hex: '#fbbf24', uv: false },
+            'azul': { hex: '#3b82f6', uv: false },
+            'branco': { hex: '#ffffff', uv: false },
+            'verde': { hex: '#16a34a', uv: false },
+            'musgo': { hex: '#14532d', uv: false },
+            'peixe': { hex: '#94a3b8', uv: false },
+            'peixinho': { hex: '#94a3b8', uv: false },
+            'perola': { hex: '#fafaf9', uv: false },
+            'pérola': { hex: '#fafaf9', uv: false },
+            'amarelo': { hex: '#fbbf24', uv: false }
+        };
+
+        return items.map(item => {
+            let name = item;
+            let uv = false;
+
+            // Check if name contains 'UV' (case insensitive)
+            if (/\b(uv)\b/i.test(name)) {
+                uv = true;
+            }
+
+            // Extract any hex codes (e.g. #ff0000 or #f00)
+            const hexRegex = /#([0-9A-Fa-f]{3,6})\b/g;
+            const hexMatches = [];
+            let match;
+            while ((match = hexRegex.exec(name)) !== null) {
+                hexMatches.push(match[0]);
+            }
+
+            // Clean the name from hex codes, UV labels and empty parentheses
+            name = name.replace(/#([0-9A-Fa-f]{3,6})/g, '')
+                       .replace(/\(\s*uv\s*\)/i, '')
+                       .replace(/\buv\b/i, '')
+                       .replace(/\(\s*\/\s*\)/g, '')
+                       .replace(/\(\s*\)/g, '')
+                       .replace(/\s+/g, ' ')
+                       .trim();
+
+            let hex = null;
+            let hex2 = null;
+
+            if (hexMatches.length >= 2) {
+                hex = hexMatches[0];
+                hex2 = hexMatches[1];
+            } else if (hexMatches.length === 1) {
+                hex = hexMatches[0];
+            }
+
+            // If hex is not explicitly provided, try to guess from the clean name
+            if (!hex) {
+                const cleanLower = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                
+                // Exact or partial match
+                if (colorMap[cleanLower]) {
+                    hex = colorMap[cleanLower].hex;
+                    if (colorMap[cleanLower].uv) uv = true;
+                } else if (name.includes('/')) {
+                    // Split colors like "Preto/Amarelo"
+                    const parts = name.split('/').map(p => p.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+                    if (parts[0] && colorMap[parts[0]]) {
+                        hex = colorMap[parts[0]].hex;
+                        if (colorMap[parts[0]].uv) uv = true;
+                    }
+                    if (parts[1] && colorMap[parts[1]]) {
+                        hex2 = colorMap[parts[1]].hex;
+                        if (colorMap[parts[1]].uv) uv = true;
+                    }
+                } else {
+                    // Fuzzy matching check in keys
+                    const foundKey = Object.keys(colorMap).find(key => cleanLower.includes(key));
+                    if (foundKey) {
+                        hex = colorMap[foundKey].hex;
+                        if (colorMap[foundKey].uv) uv = true;
+                    }
+                }
+            }
+
+            if (!hex) hex = '#888888'; // Default fallback grey
+
+            const colorObj = { name, hex, uv };
+            if (hex2) colorObj.hex2 = hex2;
+
+            return colorObj;
+        });
+    }
+
     // --- ELEMENTOS DO WORKSPACE ---
     const adminProductsList = document.getElementById('admin-products-list');
     const adminAddProductBtn = document.getElementById('admin-add-product-btn');
@@ -265,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Sugestão padrão nos placeholders e valores prévios
             inputProductSizes.value = '6.0 cm (12g), 8.5 cm (18g)';
-            inputProductColors.value = '[\n  {"name": "Verde Limão (UV)", "hex": "#ccff00", "uv": true},\n  {"name": "Osso (UV)", "hex": "#fdf6e2", "uv": true}\n]';
+            inputProductColors.value = 'Verde Limão (UV), Osso (UV), Branco/Azul';
             
             adminProductModal.classList.add('active');
             overlay.classList.add('active');
@@ -299,7 +420,24 @@ document.addEventListener('DOMContentLoaded', () => {
         inputProductDesc.value = product.desc;
         
         inputProductSizes.value = product.sizes ? product.sizes.join(', ') : '';
-        inputProductColors.value = product.colors ? JSON.stringify(product.colors, null, 2) : '[]';
+        
+        if (product.colors && Array.isArray(product.colors)) {
+            const colorStrings = product.colors.map(c => {
+                let s = c.name;
+                if (c.hex && c.hex2) {
+                    s += ` (${c.hex}/${c.hex2})`;
+                } else if (c.hex) {
+                    s += ` (${c.hex})`;
+                }
+                if (c.uv && !s.toLowerCase().includes('uv')) {
+                    s += ' (UV)';
+                }
+                return s;
+            });
+            inputProductColors.value = colorStrings.join(', ');
+        } else {
+            inputProductColors.value = '';
+        }
 
         adminProductModal.classList.add('active');
         overlay.classList.add('active');
@@ -321,19 +459,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Formatar array de tamanhos
             const sizes = inputProductSizes.value.split(',').map(s => s.trim()).filter(s => s.length > 0);
 
-            // Validar e formatar JSON de cores
+            // Validar e formatar cores (suporta texto livre ou JSON)
             let colors = [];
             try {
-                if (inputProductColors.value.trim().length > 0) {
-                    colors = JSON.parse(inputProductColors.value);
-                }
+                colors = parseColors(inputProductColors.value);
             } catch (err) {
-                alert('Erro de formatação na caixa de Cores JSON! Por favor, certifique-se de digitar um JSON válido (use aspas duplas nas chaves e strings).');
+                alert('Erro ao processar as cores! Por favor, verifique a formatação.');
                 return;
             }
 
-            // Gerar ID se for produto novo
-            const targetId = id || (Math.max(...Object.keys(products).map(Number)) + 1).toString();
+            // Gerar ID se for produto novo de forma robusta
+            const numericKeys = Object.keys(products).map(Number).filter(n => !isNaN(n));
+            const nextId = numericKeys.length > 0 ? Math.max(...numericKeys) + 1 : 1;
+            const targetId = id || nextId.toString();
 
             // Configurar imagens fallback baseadas na categoria
             let images = ['images/lure_1.png', 'images/lure_4.png']; 
