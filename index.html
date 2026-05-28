@@ -60,7 +60,7 @@
     <!-- About Section -->
     <section id="sobre" class="about">
         <div class="container about-container">
-            <div class="about-text">
+            <div class="about-text reveal">
                 <h2>Qualidade que faz a diferença na ponta da linha</h2>
                 <p>Nossas iscas são desenvolvidas com materiais de alta resistência, cores atrativas (cores UV) e nado perfeitamente balanceado para simular presas reais. Não importa se você pesca Tucunaré, Traíra ou Dourado, temos a isca certa para a sua região.</p>
                 
@@ -88,7 +88,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="about-image-container">
+            <div class="about-image-container reveal">
                 <div class="about-image" style="background-image: url('images/lure_1.png');"></div>
                 <div class="glass-card">
                     <i class="ph-fill ph-star"></i>
@@ -101,156 +101,27 @@
     <!-- Products Section -->
     <section id="produtos" class="products">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <h2>Nossos Modelos</h2>
                 <p>Confira algumas de nossas iscas campeãs. Entre em contato para cores e tamanhos disponíveis.</p>
             </div>
 
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card" data-id="1">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_1.png" alt="Sapo Anti-enrosco (Placeholder)" class="product-image">
-                        <div class="product-badge">Topwater</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Frog Anti-enrosco (Exemplo)</h3>
-                        <p class="product-desc">Isca de superfície ideal para locais com muita vegetação. Nado em Z perfeito.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 25,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Frog Anti-enrosco">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Search & Filters -->
+            <div class="catalog-controls">
+                <div class="search-bar-wrapper">
+                    <i class="ph ph-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Buscar isca por nome ou descrição...">
                 </div>
-
-                <!-- Product 2 -->
-                <div class="product-card" data-id="2">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_2.png" alt="Isca Meia-água (Placeholder)" class="product-image">
-                        <div class="product-badge">Meia-água</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Jerkbait Minnow (Exemplo)</h3>
-                        <p class="product-desc">Excelente para dias em que o peixe está manhoso. Flutuação rápida e rattlin forte.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 35,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Jerkbait Minnow">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card" data-id="3">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_3.png" alt="Spinnerbait (Placeholder)" class="product-image">
-                        <div class="product-badge">Fundo/Meia-água</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Spinnerbait Neon (Exemplo)</h3>
-                        <p class="product-desc">Grande vibração e reflexo na água. Muito produtiva em águas turvas.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 42,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Spinnerbait Neon">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="category-filters">
+                    <button class="filter-btn active" data-category="todos">Todos</button>
+                    <button class="filter-btn" data-category="superficie">Superfície</button>
+                    <button class="filter-btn" data-category="meia-agua">Meia-Água</button>
+                    <button class="filter-btn" data-category="fundo">Fundo/Profundidade</button>
                 </div>
             </div>
 
-                <!-- Product 4 -->
-                <div class="product-card" data-id="4">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_4.png" alt="Popper (Placeholder)" class="product-image">
-                        <div class="product-badge">Superfície</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Isca Popper (Exemplo)</h3>
-                        <p class="product-desc">Ação de superfície que levanta muita água (Splash). Irresistível para predadores ativos.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 28,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Isca Popper">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card" data-id="5">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_5.png" alt="Crankbait Profundidade (Placeholder)" class="product-image">
-                        <div class="product-badge">Fundo/Profundidade</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Crankbait Fundo (Exemplo)</h3>
-                        <p class="product-desc">Isca de barbela longa que atinge maiores profundidades. Perfeita para peixes manhosos no fundo.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 32,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Crankbait Profundidade">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card" data-id="6">
-                    <div class="product-image-wrapper product-trigger">
-                        <img src="images/lure_2.png" alt="Isca Meia-água/Zara (Placeholder)" class="product-image">
-                        <div class="product-badge">Superfície/Zara</div>
-                        <div class="product-hover-hint">Clique para ver detalhes</div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-trigger">Isca Zara / Stick (Exemplo)</h3>
-                        <p class="product-desc">Nado errático "Walk the Dog". Excelente para levantamento de cardumes de tucunarés.</p>
-                        <div class="product-footer">
-                            <span class="price">R$ 29,00</span>
-                            <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="Isca Zara">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="products-grid" id="products-grid">
+                <!-- Rendered dynamically via JS -->
             </div>
             
             <div class="products-more">
@@ -263,7 +134,7 @@
     <!-- Contact Section -->
     <section id="contato" class="contact">
         <div class="container contact-container">
-            <div class="contact-box glass-box">
+            <div class="contact-box glass-box reveal">
                 <h2>Pronto para a pescaria?</h2>
                 <p>Entre em contato pelo WhatsApp para tirar dúvidas, escolher cores e fechar seu pedido de forma rápida e segura.</p>
                 
@@ -334,7 +205,24 @@
                     <h2 id="modal-title">Nome da Isca</h2>
                     <span id="modal-badge" class="badge">Categoria</span>
                     <p id="modal-desc">Descrição detalhada do produto aqui...</p>
-                    <div class="modal-price-row">
+                    
+                    <!-- Seletores de Cores e Tamanhos -->
+                    <div class="modal-options">
+                        <div class="option-group">
+                            <span class="option-label">Escolha a Cor: <strong id="modal-selected-color-label"></strong></span>
+                            <div class="color-bubbles-container" id="modal-colors">
+                                <!-- Bolinhas via JS -->
+                            </div>
+                        </div>
+                        <div class="option-group" style="margin-top: 1.25rem;">
+                            <span class="option-label">Escolha o Tamanho / Peso: <strong id="modal-selected-size-label"></strong></span>
+                            <div class="size-pills-container" id="modal-sizes">
+                                <!-- Pílulas via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-price-row" style="margin-top: 1.5rem;">
                         <span id="modal-price" class="price">R$ 0,00</span>
                     </div>
                     <div class="modal-actions">
@@ -347,6 +235,122 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content glass-box" style="max-width: 550px;">
+            <button id="checkout-close" class="close-btn"><i class="ph ph-x"></i></button>
+            <div class="modal-header-form" style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; color: #fff;">
+                    <i class="ph-bold ph-truck" style="color: var(--accent-neon);"></i> Detalhes da Entrega
+                </h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Preencha os dados abaixo para organizarmos o seu envio e pagamento.</p>
+            </div>
+            <form id="checkout-form" class="checkout-form">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="checkout-name" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Nome Completo</label>
+                    <div class="input-wrapper" style="position: relative;">
+                        <i class="ph ph-user input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;"></i>
+                        <input type="text" id="checkout-name" required placeholder="Digite seu nome completo" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                    </div>
+                </div>
+                
+                <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label for="checkout-phone" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">WhatsApp / Celular</label>
+                        <div class="input-wrapper" style="position: relative;">
+                            <i class="ph ph-whatsapp-logo input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;"></i>
+                            <input type="tel" id="checkout-phone" required placeholder="(63) 99999-9999" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-cep" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">CEP</label>
+                        <div class="input-wrapper" style="position: relative;">
+                            <i class="ph ph-map-pin input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;"></i>
+                            <input type="text" id="checkout-cep" required placeholder="77000-000" maxlength="9" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-custom" style="display: grid; grid-template-columns: 3.5fr 1.5fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group address-field">
+                        <label for="checkout-address" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Endereço (Rua, Avenida, etc.)</label>
+                        <div class="input-wrapper" style="position: relative;">
+                            <i class="ph ph-house input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;"></i>
+                            <input type="text" id="checkout-address" required placeholder="Ex: Av. JK, LO 01" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                        </div>
+                    </div>
+                    <div class="form-group number-field">
+                        <label for="checkout-number" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Nº</label>
+                        <input type="text" id="checkout-number" required placeholder="123" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                    </div>
+                </div>
+
+                <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label for="checkout-neighborhood" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Bairro</label>
+                        <input type="text" id="checkout-neighborhood" required placeholder="Ex: Centro" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-city" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Cidade / UF</label>
+                        <input type="text" id="checkout-city" required placeholder="Palmas - TO" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="checkout-complement" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Complemento <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">(Opcional)</span></label>
+                    <input type="text" id="checkout-complement" placeholder="Apto, Bloco, Ponto de referência" style="width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none;">
+                </div>
+
+                <div class="form-row-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="form-group">
+                        <label for="checkout-delivery" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Forma de Entrega</label>
+                        <div class="select-wrapper" style="position: relative;">
+                            <i class="ph ph-truck input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem; pointer-events: none;"></i>
+                            <select id="checkout-delivery" required style="width: 100%; background: rgba(15, 17, 21, 0.95); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none; appearance: none; cursor: pointer;">
+                                <option value="Motoboy" style="background:#15171a;">Motoboy (Palmas - R$ 10,00)</option>
+                                <option value="Correios" style="background:#15171a;">Correios (PAC/Sedex - A combinar)</option>
+                                <option value="Retirada" style="background:#15171a;">Retirada na Loja (Grátis)</option>
+                            </select>
+                            <i class="ph ph-caret-down" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.95rem; pointer-events: none;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout-payment" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">Forma de Pagamento</label>
+                        <div class="select-wrapper" style="position: relative;">
+                            <i class="ph ph-credit-card input-icon" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem; pointer-events: none;"></i>
+                            <select id="checkout-payment" required style="width: 100%; background: rgba(15, 17, 21, 0.95); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: #fff; font-family: var(--font-sans); font-size: 0.9rem; transition: var(--transition); outline: none; appearance: none; cursor: pointer;">
+                                <option value="Pix" style="background:#15171a;">Pix (Desconto)</option>
+                                <option value="Cartão de Crédito" style="background:#15171a;">Cartão de Crédito (na entrega)</option>
+                                <option value="Cartão de Débito" style="background:#15171a;">Cartão de Débito (na entrega)</option>
+                                <option value="Dinheiro" style="background:#15171a;">Dinheiro</option>
+                            </select>
+                            <i class="ph ph-caret-down" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.95rem; pointer-events: none;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-summary-box" style="background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                    <div class="summary-row" style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">
+                        <span>Subtotal de Produtos:</span>
+                        <span id="summary-subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-row" style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.6rem; border-bottom: 1px dashed var(--border-color); padding-bottom: 0.6rem;">
+                        <span>Frete / Envio:</span>
+                        <span id="summary-shipping">R$ 10,00</span>
+                    </div>
+                    <div class="summary-row total-row" style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; color: #fff;">
+                        <span>Total Geral:</span>
+                        <span id="summary-total" style="color: var(--accent-neon); font-weight: 900;">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-checkout-btn" class="btn-primary btn-full" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i class="ph-fill ph-whatsapp-logo" style="font-size: 1.3rem;"></i> Enviar Pedido no WhatsApp
+                </button>
+            </form>
         </div>
     </div>
 
