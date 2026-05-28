@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- PRODUCT DATA ---
-    const products = {
+    const DEFAULT_PRODUCTS = {
         1: {
             name: 'Frog Anti-enrosco',
             price: 25.00,
@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Osso (UV)', hex: '#fdf6e2', uv: true },
                 { name: 'Preto/Amarelo', hex: '#111111', hex2: '#fbbf24', uv: false }
             ],
-            sizes: ['6.0 cm (12g)', '7.5 cm (18g)']
+            sizes: ['6.0 cm (12g)', '7.5 cm (18g)'],
+            stock: 12
         },
         2: {
             name: 'Jerkbait Minnow',
@@ -51,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Cromada Head Vermelho', hex: '#ffffff', hex2: '#ef4444', uv: false },
                 { name: 'Limão UV', hex: '#ccff00', uv: true }
             ],
-            sizes: ['9.0 cm (13g)', '11.0 cm (18g)']
+            sizes: ['9.0 cm (13g)', '11.0 cm (18g)'],
+            stock: 8
         },
         3: {
             name: 'Spinnerbait Neon',
@@ -65,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Rosa Neon (UV)', hex: '#ec4899', uv: true },
                 { name: 'Branco/Azul', hex: '#ffffff', hex2: '#3b82f6', uv: false }
             ],
-            sizes: ['10g (Leve)', '14g (Médio)']
+            sizes: ['10g (Leve)', '14g (Médio)'],
+            stock: 5
         },
         4: {
             name: 'Isca Popper',
@@ -79,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Osso (UV)', hex: '#fdf6e2', uv: true },
                 { name: 'Verde Tigre', hex: '#16a34a', hex2: '#000000', uv: false }
             ],
-            sizes: ['8.0 cm (14g)', '10.5 cm (22g)']
+            sizes: ['8.0 cm (14g)', '10.5 cm (22g)'],
+            stock: 15
         },
         5: {
             name: 'Crankbait Fundo',
@@ -93,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Verde Musgo', hex: '#14532d', uv: false },
                 { name: 'Pérola/Laranja', hex: '#fafaf9', hex2: '#f97316', uv: false }
             ],
-            sizes: ['7.0 cm (15g)', '9.0 cm (24g)']
+            sizes: ['7.0 cm (15g)', '9.0 cm (24g)'],
+            stock: 10
         },
         6: {
             name: 'Isca Zara / Stick',
@@ -107,8 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Holográfica Peixinho', hex: '#94a3b8', uv: false },
                 { name: 'Verde Limão Extremo', hex: '#ccff00', uv: true }
             ],
-            sizes: ['9.0 cm (12g)', '11.5 cm (20g)']
+            sizes: ['9.0 cm (12g)', '11.5 cm (20g)'],
+            stock: 6
+        }
     };
+
+    let products = JSON.parse(localStorage.getItem('pescashop_products')) || DEFAULT_PRODUCTS;
+
+    function saveProducts() {
+        localStorage.setItem('pescashop_products', JSON.stringify(products));
+    }
 
     // --- CATALOG DYNAMIC RENDERING & FILTERING ---
     const productsGrid = document.getElementById('products-grid');
@@ -139,10 +152,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.createElement('div');
                 card.className = 'product-card reveal';
                 card.dataset.id = id;
+
+                const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+                const stockBadgeHtml = isOutOfStock 
+                    ? `<div class="product-badge" style="background:#ef4444;border-color:#ef4444;">Esgotado</div>` 
+                    : `<div class="product-badge">${product.badge}</div>`;
+                
+                const buttonActionsHtml = isOutOfStock 
+                    ? `<span style="font-size:0.8rem;color:#ef4444;font-weight:700;display:inline-flex;align-items:center;gap:0.25rem;padding:0.5rem 0;"><i class="ph-bold ph-x-circle"></i> Esgotado</span>` 
+                    : `
+                        <button class="btn-add-cart" title="Adicionar ao carrinho">
+                            <i class="ph ph-shopping-cart-simple"></i>
+                        </button>
+                        <button class="btn-buy" data-produto="${product.name}">
+                            <i class="ph-bold ph-whatsapp-logo"></i> Comprar
+                        </button>
+                    `;
+
                 card.innerHTML = `
                     <div class="product-image-wrapper product-trigger">
-                        <img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy">
-                        <div class="product-badge">${product.badge}</div>
+                        <img src="${product.images[0]}" alt="${product.name}" class="product-image" loading="lazy" style="${isOutOfStock ? 'filter: grayscale(0.8) opacity(0.5);' : ''}">
+                        ${stockBadgeHtml}
                         <div class="product-hover-hint">Clique para ver detalhes</div>
                     </div>
                     <div class="product-info">
@@ -151,12 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="product-footer">
                             <span class="price">R$ ${product.price.toFixed(2)}</span>
                             <div class="product-actions">
-                                <button class="btn-add-cart" title="Adicionar ao carrinho">
-                                    <i class="ph ph-shopping-cart-simple"></i>
-                                </button>
-                                <button class="btn-buy" data-produto="${product.name}">
-                                    <i class="ph-bold ph-whatsapp-logo"></i> Comprar
-                                </button>
+                                ${buttonActionsHtml}
                             </div>
                         </div>
                     </div>
@@ -296,6 +321,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartKey = `${id}_${colorName}_${sizeName}`;
 
         const existingItem = cart.find(item => item.key === cartKey);
+        const currentQtyInCart = existingItem ? existingItem.qty : 0;
+
+        if (product.stock !== undefined && currentQtyInCart >= product.stock) {
+            alert(`Desculpe, temos apenas ${product.stock} unidade(s) de "${product.name}" em estoque.`);
+            return;
+        }
+
         if (existingItem) {
             existingItem.qty++;
         } else {
@@ -336,7 +368,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (index === undefined) return;
 
         if (e.target.closest('.plus')) {
-            cart[index].qty++;
+            const item = cart[index];
+            const product = products[item.id];
+            if (product && product.stock !== undefined && item.qty >= product.stock) {
+                alert(`Desculpe, temos apenas ${product.stock} unidade(s) de "${product.name}" em estoque.`);
+            } else {
+                item.qty++;
+            }
         } else if (e.target.closest('.minus')) {
             if (cart[index].qty > 1) cart[index].qty--;
             else cart.splice(index, 1);
@@ -461,6 +499,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } else {
             modalSizeLabel.textContent = '';
+        }
+
+        const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+        if (isOutOfStock) {
+            modalAddBtn.disabled = true;
+            modalAddBtn.innerHTML = `<i class="ph ph-x-circle"></i> Indisponível`;
+            modalAddBtn.style.opacity = '0.5';
+            modalAddBtn.style.cursor = 'not-allowed';
+            
+            modalBuyNow.disabled = true;
+            modalBuyNow.innerHTML = `<i class="ph ph-x-circle"></i> Esgotado`;
+            modalBuyNow.style.opacity = '0.5';
+            modalBuyNow.style.cursor = 'not-allowed';
+        } else {
+            modalAddBtn.disabled = false;
+            modalAddBtn.innerHTML = `<i class="ph ph-shopping-cart-simple"></i> Adicionar ao Carrinho`;
+            modalAddBtn.style.opacity = '1';
+            modalAddBtn.style.cursor = 'pointer';
+            
+            modalBuyNow.disabled = false;
+            modalBuyNow.innerHTML = `<i class="ph ph-whatsapp-logo"></i> Comprar Agora`;
+            modalBuyNow.style.opacity = '1';
+            modalBuyNow.style.cursor = 'pointer';
         }
 
         modal.classList.add('active');
@@ -719,6 +780,313 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         revealElements.forEach(el => observer.observe(el));
+    }
+
+    // --- ADMIN PANEL LOGIC ---
+    const adminTrigger = document.getElementById('admin-trigger');
+    const adminLoginModal = document.getElementById('admin-login-modal');
+    const adminLoginClose = document.getElementById('admin-login-close');
+    const adminLoginForm = document.getElementById('admin-login-form');
+    const adminPasswordInput = document.getElementById('admin-password');
+
+    const adminPanelModal = document.getElementById('admin-panel-modal');
+    const adminPanelClose = document.getElementById('admin-panel-close');
+    const adminProductsList = document.getElementById('admin-products-list');
+    const adminAddProductBtn = document.getElementById('admin-add-product-btn');
+    const adminResetBtn = document.getElementById('admin-reset-btn');
+
+    const adminTabBtns = document.querySelectorAll('.admin-tab-btn');
+    const adminTabContents = document.querySelectorAll('.admin-tab-content');
+    const adminExporterCode = document.getElementById('admin-exporter-code');
+    const adminCopyCodeBtn = document.getElementById('admin-copy-code-btn');
+
+    const adminProductModal = document.getElementById('admin-product-modal');
+    const adminProductClose = document.getElementById('admin-product-close');
+    const adminProductForm = document.getElementById('admin-product-form');
+    const adminProductModalTitle = document.getElementById('admin-product-modal-title');
+
+    // Form inputs
+    const inputProductId = document.getElementById('admin-product-id');
+    const inputProductName = document.getElementById('admin-product-name');
+    const inputProductPrice = document.getElementById('admin-product-price');
+    const inputProductStock = document.getElementById('admin-product-stock');
+    const inputProductCategory = document.getElementById('admin-product-category');
+    const inputProductBadge = document.getElementById('admin-product-badge');
+    const inputProductDesc = document.getElementById('admin-product-desc');
+    const inputProductSizes = document.getElementById('admin-product-sizes');
+    const inputProductColors = document.getElementById('admin-product-colors');
+
+    // Open Admin Trigger
+    if (adminTrigger) {
+        adminTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            adminPasswordInput.value = '';
+            adminLoginModal.classList.add('active');
+            overlay.classList.add('active');
+        });
+    }
+
+    if (adminLoginClose) {
+        adminLoginClose.addEventListener('click', () => {
+            adminLoginModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    }
+
+    // Submit Password Form
+    if (adminLoginForm) {
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = adminPasswordInput.value;
+            if (password === 'pesca123') {
+                adminLoginModal.classList.remove('active');
+                openAdminPanel();
+            } else {
+                alert('Senha incorreta! Tente novamente.');
+                adminPasswordInput.value = '';
+                adminPasswordInput.focus();
+            }
+        });
+    }
+
+    function openAdminPanel() {
+        renderAdminProducts();
+        adminPanelModal.classList.add('active');
+        overlay.classList.add('active');
+    }
+
+    if (adminPanelClose) {
+        adminPanelClose.addEventListener('click', () => {
+            adminPanelModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    }
+
+    // Render Products Table in Admin
+    function renderAdminProducts() {
+        if (!adminProductsList) return;
+        adminProductsList.innerHTML = '';
+
+        Object.keys(products).forEach(id => {
+            const product = products[id];
+            const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+            const stockBadge = isOutOfStock 
+                ? `<span class="stock-badge out-of-stock">Esgotado</span>` 
+                : `<span class="stock-badge in-stock">Em Estoque</span>`;
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; color: #fff; font-weight: 600;">
+                    <img src="${product.images[0]}" class="admin-product-thumb" alt="${product.name}">
+                    <span>${product.name}</span>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); color: #fff;">R$ ${product.price.toFixed(2)}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); text-transform: capitalize; color: var(--text-muted);">${product.category}</td>
+                <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); text-align: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.25rem;">
+                        <div class="admin-stock-control">
+                            <button class="admin-stock-btn stock-minus" data-id="${id}">-</button>
+                            <span class="admin-stock-value">${product.stock !== undefined ? product.stock : 0}</span>
+                            <button class="admin-stock-btn stock-plus" data-id="${id}">+</button>
+                        </div>
+                        ${stockBadge}
+                    </div>
+                </td>
+                <td style="padding: 1rem; border-bottom: 1px solid var(--border-color); text-align: right;">
+                    <button class="admin-action-btn edit-product" data-id="${id}" title="Editar"><i class="ph ph-pencil-simple"></i></button>
+                    <button class="admin-action-btn delete delete-product" data-id="${id}" title="Excluir"><i class="ph ph-trash"></i></button>
+                </td>
+            `;
+            adminProductsList.appendChild(tr);
+        });
+
+        // Generate exporter code
+        generateExporterCode();
+    }
+
+    // Handle Quick Stock and Actions in Table
+    if (adminProductsList) {
+        adminProductsList.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+
+            const id = btn.dataset.id;
+            if (btn.classList.contains('stock-minus')) {
+                if (products[id].stock > 0) {
+                    products[id].stock--;
+                    saveProducts();
+                    renderAdminProducts();
+                    renderCatalog();
+                }
+            } else if (btn.classList.contains('stock-plus')) {
+                if (products[id].stock === undefined) products[id].stock = 0;
+                products[id].stock++;
+                saveProducts();
+                renderAdminProducts();
+                renderCatalog();
+            } else if (btn.classList.contains('edit-product')) {
+                openEditProductModal(id);
+            } else if (btn.classList.contains('delete-product')) {
+                if (confirm(`Tem certeza que deseja excluir a isca "${products[id].name}" do catálogo?`)) {
+                    delete products[id];
+                    saveProducts();
+                    renderAdminProducts();
+                    renderCatalog();
+                }
+            }
+        });
+    }
+
+    // Tabs Navigation Lógica
+    adminTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            adminTabBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.color = 'var(--text-muted)';
+            });
+            btn.classList.add('active');
+            btn.style.color = '#000';
+
+            const tabName = btn.dataset.tab;
+            adminTabContents.forEach(content => {
+                if (content.id === `admin-tab-${tabName}`) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Copy Exporter Code
+    if (adminCopyCodeBtn) {
+        adminCopyCodeBtn.addEventListener('click', () => {
+            adminExporterCode.select();
+            document.execCommand('copy');
+            alert('Código do catálogo copiado para a área de transferência!');
+        });
+    }
+
+    function generateExporterCode() {
+        if (!adminExporterCode) return;
+        // Strip out keys for storage, output clean formatted JavaScript object
+        const code = `// Cole este objeto no início do seu arquivo script.js para atualizar permanentemente
+const INITIAL_PRODUCTS_DATABASE = ${JSON.stringify(products, null, 4)};`;
+        adminExporterCode.value = code;
+    }
+
+    // Reset Catalog to Default
+    if (adminResetBtn) {
+        adminResetBtn.addEventListener('click', () => {
+            if (confirm('Atenção: Isso redefinirá todo o estoque e produtos para as 6 iscas padrões iniciais. Deseja continuar?')) {
+                products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+                saveProducts();
+                renderAdminProducts();
+                renderCatalog();
+                alert('Catálogo redefinido com sucesso!');
+            }
+        });
+    }
+
+    // Add Product Modal Trigger
+    if (adminAddProductBtn) {
+        adminAddProductBtn.addEventListener('click', () => {
+            adminProductModalTitle.textContent = 'Adicionar Nova Isca';
+            adminProductForm.reset();
+            inputProductId.value = '';
+            
+            // Set some default colors/sizes in form for helper
+            inputProductSizes.value = '6.0 cm (12g), 8.5 cm (18g)';
+            inputProductColors.value = '[\n  {"name": "Verde Limão (UV)", "hex": "#ccff00", "uv": true},\n  {"name": "Osso (UV)", "hex": "#fdf6e2", "uv": true}\n]';
+            
+            adminProductModal.classList.add('active');
+        });
+    }
+
+    if (adminProductClose) {
+        adminProductClose.addEventListener('click', () => {
+            adminProductModal.classList.remove('active');
+        });
+    }
+
+    // Edit Product Modal
+    function openEditProductModal(id) {
+        const product = products[id];
+        adminProductModalTitle.textContent = `Editar Isca: ${product.name}`;
+        
+        inputProductId.value = id;
+        inputProductName.value = product.name;
+        inputProductPrice.value = product.price;
+        inputProductStock.value = product.stock !== undefined ? product.stock : 10;
+        inputProductCategory.value = product.category;
+        inputProductBadge.value = product.badge;
+        inputProductDesc.value = product.desc;
+        
+        inputProductSizes.value = product.sizes ? product.sizes.join(', ') : '';
+        inputProductColors.value = product.colors ? JSON.stringify(product.colors, null, 2) : '[]';
+
+        adminProductModal.classList.add('active');
+    }
+
+    // Submit Add/Edit Form
+    if (adminProductForm) {
+        adminProductForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const id = inputProductId.value;
+            const name = inputProductName.value;
+            const price = parseFloat(inputProductPrice.value);
+            const stock = parseInt(inputProductStock.value);
+            const category = inputProductCategory.value;
+            const badge = inputProductBadge.value;
+            const desc = inputProductDesc.value;
+
+            // Formatar sizes array
+            const sizes = inputProductSizes.value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
+            // Validar e formatar colors JSON
+            let colors = [];
+            try {
+                if (inputProductColors.value.trim().length > 0) {
+                    colors = JSON.parse(inputProductColors.value);
+                }
+            } catch (err) {
+                alert('Erro de formatação na caixa de Cores JSON! Certifique-se de digitar um JSON válido.');
+                return;
+            }
+
+            // Se for novo produto, gera id numérico incremental
+            const targetId = id || (Math.max(...Object.keys(products).map(Number)) + 1).toString();
+
+            // Set images array (keep existing or set defaults based on category)
+            let images = ['images/lure_1.png', 'images/lure_4.png']; // Fallback
+            if (id && products[id] && products[id].images) {
+                images = products[id].images;
+            } else {
+                // Assign sensible lure images based on category
+                if (category === 'meia-agua') images = ['images/lure_2.png', 'images/lure_5.png'];
+                else if (category === 'fundo') images = ['images/lure_3.png', 'images/lure_1.png'];
+            }
+
+            products[targetId] = {
+                name,
+                price,
+                desc,
+                badge,
+                category,
+                images,
+                colors,
+                sizes,
+                stock
+            };
+
+            saveProducts();
+            adminProductModal.classList.remove('active');
+            renderAdminProducts();
+            renderCatalog();
+            
+            alert(id ? 'Produto atualizado com sucesso!' : 'Novo produto adicionado com sucesso!');
+        });
     }
 
     // Initialize UI & Animations

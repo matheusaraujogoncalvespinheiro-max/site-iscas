@@ -1256,3 +1256,162 @@ footer {
     transform: translateY(0);
 }
 
+/* --- ADMIN PANEL STYLES --- */
+
+/* Tabs active classes */
+.admin-tab-btn {
+    border: 1px solid transparent;
+    transition: var(--transition);
+    background: transparent;
+}
+
+.admin-tab-btn:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-tab-btn.active {
+    color: #000 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
+}
+
+/* Table layout styling */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table-wrapper th, 
+.table-wrapper td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.table-wrapper tbody tr {
+    transition: var(--transition);
+}
+
+.table-wrapper tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.admin-product-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+}
+
+.admin-stock-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.admin-stock-btn {
+    color: var(--text-muted);
+    font-size: 1rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.admin-stock-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.admin-stock-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: #fff;
+    min-width: 25px;
+    text-align: center;
+}
+
+/* Stock Badges */
+.stock-badge {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stock-badge.in-stock {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stock-badge.out-of-stock {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Exporter styles */
+textarea#admin-exporter-code {
+    border-color: var(--border-color);
+    transition: var(--transition);
+}
+
+textarea#admin-exporter-code:focus {
+    border-color: var(--accent-neon);
+    box-shadow: 0 0 10px var(--accent-neon-glow);
+}
+
+/* Quick edit/delete actions */
+.admin-action-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--text-muted);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.admin-action-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.admin-action-btn.delete:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* Modals general resets for form focus states inside admin */
+#admin-product-modal input:focus,
+#admin-product-modal select:focus,
+#admin-product-modal textarea:focus {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+#admin-password:focus {
+    border-color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
